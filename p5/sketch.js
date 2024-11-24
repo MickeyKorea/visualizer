@@ -11,8 +11,8 @@ let displayDuration = 5000;
 let transitionDuration = 1000;
 
 function preload() {
-    song = loadSound('./assets/you.mp3');
-    loadJSON('./assets/you.json', function (data) {
+    song = loadSound('../assets/you.mp3');
+    loadJSON('../assets/you.json', function (data) {
         // Convert all lyrics text to uppercase
         lyrics = data.map(lyric => ({
             text: lyric.text.toUpperCase(),
