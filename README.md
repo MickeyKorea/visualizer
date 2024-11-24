@@ -6,13 +6,13 @@ A documentation of developing a song lyric visualizer, initially conceived as an
 
 ## Initial Development
 
-1. Created a [p5 canvas](https://mickeykorea.github.io/visualizer/) as the foundation
+1. Created a [p5 canvas](https://mickeykorea.github.io/visualizer/p5) as the foundation
 - Required time-stamped lyric JSON file for visualization
 - Utilized [Lyricstify](https://www.lyricsify.com/) for time-stamped lyrics and JSON conversion
 
 ## Technical Evolution
 
-1. Migrated from P5.js to pure JavaScript canvas for performance optimization
+1. Migrated from P5.js to pure [JavaScript canvas](https://mickeykorea.github.io/visualizer/) for performance optimization
 
 ### Planned Features:
 
