@@ -1,6 +1,8 @@
 // DOM
 const canvas = document.getElementById('canvas');
 const playButton = document.getElementById('playButton');
+const buttonHide = 4000;
+let buttonTimeout;
 
 let ctx;
 let audio;
@@ -49,11 +51,38 @@ async function init() {
             }));
         });
 
+    audio.addEventListener('ended', () => {
+        isPlaying = false;
+        currentLyricIndex = 0;
+        inputText = '';
+        textPositions = [];
+        playButton.textContent = 'PLAY';
+    });
+
     // Setup play button
-    document.getElementById('playButton').addEventListener('click', togglePlay);
+    playButton.addEventListener('click', togglePlay);
+
+    // Mouse move and initial button setup
+    document.addEventListener('mousemove', showButton);
+    playButton.style.transition = 'opacity 0.3s ease';
+    showButton();
 
     // Start animation loop
     requestAnimationFrame(draw);
+}
+
+function showButton() {
+    playButton.style.opacity = '1';
+
+    // Clear any existing timeout
+    if (buttonTimeout) {
+        clearTimeout(buttonTimeout);
+    }
+
+    // Set new timeout to hide button
+    buttonTimeout = setTimeout(() => {
+        playButton.style.opacity = '0';
+    }, buttonHide);
 }
 
 function resizeCanvas() {
@@ -111,6 +140,7 @@ function togglePlay() {
     if (!isPlaying) {
         audio.play();
         isPlaying = true;
+        playButton.textContent = 'PAUSE';
         // currentLyricIndex = 0;
         // inputText = '';
         // textPositions = [];
@@ -118,6 +148,7 @@ function togglePlay() {
         audio.pause();
         //audio.currentTime = 0;
         isPlaying = false;
+        playButton.textContent = 'PLAY';
     }
 }
 
