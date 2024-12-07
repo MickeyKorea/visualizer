@@ -1,3 +1,25 @@
+const COLOR_SCHEMES = {
+    you: {
+        primary: '#ff6347',
+        secondary: '#ffffff'
+    },
+    true_love: {
+        primary: '#4393D9',
+        secondary: '#ffffff'
+    },
+    worth_it: {
+        primary: '#d1b447',
+        secondary: '#ffffff'
+    },
+    sometimes: {
+        primary: '#db7116',
+        secondary: '#ffffff'
+    }
+};
+
+let currentColors;
+let selectedSong;
+
 // DOM
 const canvas = document.getElementById('canvas');
 const playButton = document.getElementById('playButton');
@@ -26,6 +48,19 @@ const TRANSITION_DURATION = 1000;
 const letterStates = new Map();
 
 async function init() {
+    // Get song from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    selectedSong = urlParams.get('song') || 'you';
+
+    // Set random colors from scheme
+    const scheme = COLOR_SCHEMES[selectedSong];
+    currentColors = {
+        primary: scheme.primary,
+        secondary: scheme.secondary
+    };
+
+    updateButtonStyle();
+
     ctx = canvas.getContext('2d');
 
     // Set canvas size
@@ -33,7 +68,8 @@ async function init() {
     window.addEventListener('resize', resizeCanvas);
 
     // Setup audio
-    audio = new Audio('./assets/you.mp3');
+    // audio = new Audio('./assets/you.mp3');
+    audio = new Audio(`./assets/mp3/${selectedSong}.mp3`);
     audio.addEventListener('ended', () => {
         isPlaying = false;
         currentLyricIndex = 0;
@@ -42,7 +78,8 @@ async function init() {
     });
 
     // Load lyrics
-    fetch('./assets/you.json')
+    // fetch('./assets/you.json')
+    fetch(`./assets/lyrics/${selectedSong}.json`)
         .then(response => response.json())
         .then(data => {
             lyrics = data.map(lyric => ({
@@ -69,6 +106,30 @@ async function init() {
 
     // Start animation loop
     requestAnimationFrame(draw);
+}
+
+function updateButtonStyle() {
+    const style = document.createElement('style');
+    style.textContent = `
+        #playButton {
+            background-color: ${currentColors.primary}33;
+            box-shadow: ${currentColors.primary}33 0 -25px 18px -14px inset,
+                ${currentColors.primary}26 0 1px 2px,
+                ${currentColors.primary}26 0 2px 4px,
+                ${currentColors.primary}26 0 4px 8px,
+                ${currentColors.primary}26 0 8px 16px,
+                ${currentColors.primary}26 0 16px 32px;
+        }
+        #playButton:hover {
+            box-shadow: ${currentColors.primary}59 0 -25px 18px -14px inset,
+                ${currentColors.primary}40 0 1px 2px,
+                ${currentColors.primary}40 0 2px 4px,
+                ${currentColors.primary}40 0 4px 8px,
+                ${currentColors.primary}40 0 8px 16px,
+                ${currentColors.primary}40 0 16px 32px;
+        }
+    `;
+    document.head.appendChild(style);
 }
 
 function showButton() {
@@ -113,11 +174,15 @@ function draw() {
             ctx.shadowColor = 'transparent';
 
             if (forcedLetter) {
-                setGlow(ctx, 'white', GLOW_INTENSITY);
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                // setGlow(ctx, 'white', GLOW_INTENSITY);
+                // ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                setGlow(ctx, currentColors.secondary, GLOW_INTENSITY);
+                ctx.fillStyle = currentColors.secondary + 'cc';
             } else {
-                setGlow(ctx, 'tomato', GLOW_INTENSITY);
-                ctx.fillStyle = 'rgba(255, 99, 71, 0.8)';
+                // setGlow(ctx, 'tomato', GLOW_INTENSITY);
+                // ctx.fillStyle = 'rgba(255, 99, 71, 0.8)';
+                setGlow(ctx, currentColors.primary, GLOW_INTENSITY);
+                ctx.fillStyle = currentColors.primary + 'cc';
             }
 
             gridText(x, y, forcedLetter);

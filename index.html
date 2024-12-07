@@ -3,23 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Visualizer</title>
+    <title>Lyric Visualizer</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <style>
+      html {
+        font-family: "CerebriSans-Regular", -apple-system, system-ui, Roboto;
+      }
+    </style>
   </head>
   <body>
-    <!-- <div id="searchInterface"></div>
-      <h1>Music Visualizer</h1>
-      <input 
-        type="text" 
-        id="searchInput" 
-        placeholder="Search for a song..."
-        autocomplete="off"
-      >
-      <div id="searchResults"></div>
-    </div> -->
-
-    <canvas id="canvas"></canvas>
-    <button id="playButton">PLAY</button>
-    <script src="script.js"></script>
+    <div id="songSelection">
+      <h1>Lyric Visualizer</h1>
+      <div class="song-grid">
+        <div class="song-card" data-song="you">
+          <img src="assets/covers/you.jpeg" alt="You" />
+          <h3>You!</h3>
+          <p>LANY</p>
+        </div>
+        <div class="song-card" data-song="true_love">
+          <img src="assets/covers/true_love.jpeg" alt="True Love" />
+          <h3>True Love</h3>
+          <p>Coldplay</p>
+        </div>
+        <div class="song-card" data-song="worth_it">
+          <img src="assets/covers/worth_it.jpg" alt="Worth It" />
+          <h3>Worth It</h3>
+          <p>Kodaline</p>
+        </div>
+        <div class="song-card" data-song="sometimes">
+          <img src="assets/covers/sometimes.jpeg" alt="Sometimes" />
+          <h3>Sometimes ◐</h3>
+          <p>HONNE</p>
+        </div>
+      </div>
+    </div>
+    <script src="landing.js"></script>
   </body>
 </html>
