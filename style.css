@@ -112,7 +112,6 @@ canvas {
 }
 
 #playButton:active {
-    background-color: rgba(255, 99, 71, 0.3);
     transform: translate(-50%, -50%) scale(1.05) rotate(-1deg);
 }
 

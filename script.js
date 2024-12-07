@@ -128,6 +128,9 @@ function updateButtonStyle() {
                 ${currentColors.primary}40 0 8px 16px,
                 ${currentColors.primary}40 0 16px 32px;
         }
+        #playButton:active {
+            background-color: ${currentColors.primary}4D;  /* 30% opacity */
+        }
     `;
     document.head.appendChild(style);
 }
